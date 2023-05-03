@@ -21,7 +21,8 @@ ${MAINPOSITIONINPUT}        xpath = //*[@name="mainPosition"]
 ${SUBMITBUTTON}             xpath = //*[@type="submit"]
 ${PLAYERINSIDEPANEL}        xpath = //ul[2]/div[1]/div[2]/span
 ${CLEARBUTTON}              xpath = //button[2]/span[1]
-
+${SIGNOUTBUTTON}            xpath = //div/div/div/ul[2]/div[2]
+${LOGINPAGETITLE}           xpath = /html/head/title
 *** Test Cases ***
 Login to the system
     Open login page
@@ -63,22 +64,30 @@ Clear button on add player page
     Type in name
     Click on clear button
     Assert name
+Log out
+    Open login page
+    Type in email
+    Type in password
+    Click on the Sign in button
+    Click on the Sign out button
+    Assert log out page
+
 *** Keywords ***
 Open login page
-    Open Browser                    ${LOGIN URL}    ${BROWSER}
-    Title Should Be                 Scouts panel - sign in
+    Open Browser                     ${LOGIN URL}    ${BROWSER}
+    Title Should Be                  Scouts panel - sign in
 Type in email
-    Input Text                      ${EMAILINPUT}              user07@getnada.com
+    Input Text                       ${EMAILINPUT}              user07@getnada.com
 Type in password
-    Input Text                      ${PASSWORDINPUT}           Test-1234
+    Input Text                       ${PASSWORDINPUT}           Test-1234
 Click on the Sign in button
-    Click Element                   ${SIGNINBUTTON}
+    Click Element                    ${SIGNINBUTTON}
 Assert dashboards
     Wait Until Element Is Visible    ${DASHBOARDTITLE}
-    Title Should Be                 Scouts panel
-    Capture Page Screenshot         alert.png
+    Title Should Be                  Scouts panel
+    Capture Page Screenshot          alert.png
 Type in an invalid email
-    Input Text                      ${EMAILINPUT}              user01@ge
+    Input Text                       ${EMAILINPUT}              user01@ge
 Assert validation
     Wait Until Element Is Visible    ${VALIDATIONWRONGLOGIN}
     Element Text Should Be           ${VALIDATIONWRONGLOGIN}   Identifier or password invalid.
@@ -115,3 +124,10 @@ Click on clear button
     Click Element                    ${CLEARBUTTON}
 Assert name
     Element Text Should Not Be       ${NAMEINPUT}           Adam
+Click on the Sign out button
+    Wait Until Element Is Visible    ${SIGNOUTBUTTON}
+    Click Element                    ${SIGNOUTBUTTON}
+Assert log out page
+    Wait Until Element Is Visible    ${LOGINPAGETITLE}
+    Title Should Be                  Scouts panel - sign in
+    Capture Page Screenshot          logout.png
