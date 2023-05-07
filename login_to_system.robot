@@ -117,7 +117,7 @@ Type in main position
 Click on the Submit button
     Click Element                    ${SUBMITBUTTON}
 Assert Edit page
-    Wait Until Element Contains      ${PLAYERINSIDEPANEL}   Adam
+    Wait Until Element Is Visible        ${PLAYERINSIDEPANEL}   Adam Nawałka
     Element Text Should Be           ${PLAYERINSIDEPANEL}   Adam Nawałka
     Capture Page Screenshot          adding.png
 Click on clear button
