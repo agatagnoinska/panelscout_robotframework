@@ -12,7 +12,7 @@ ${VALIDATIONWRONGLOGIN}     xpath = //div/div[1]/div[3]/span
 ${LANGUAGEDROPDOWN}         xpath = //*[@aria-haspopup='listbox']
 ${LANGUAGEPOLISHBUTTON}     xpath = //*[@data-value='pl']
 ${PASSWORDLABEL}            xpath = //*[@id="password-label"]
-${ADDNEWPLAYERBUTTON}       xpath = //div[2]/div/div/a/button
+${ADDNEWPLAYERBUTTON}       xpath = //div[2]/div/div/a/button/span[1]
 ${EDITPLAYERPAGEHEADER}     xpath = //form/div[1]/div/span
 ${NAMEINPUT}                xpath = //*[@name="name"]
 ${SURNAMEINPUT}             xpath = //*[@name="surname"]
@@ -22,7 +22,9 @@ ${SUBMITBUTTON}             xpath = //*[@type="submit"]
 ${PLAYERINSIDEPANEL}        xpath = //ul[2]/div[1]/div[2]/span
 ${CLEARBUTTON}              xpath = //button[2]/span[1]
 ${SIGNOUTBUTTON}            xpath = //div/div/div/ul[2]/div[2]
-${LOGINPAGETITLE}           xpath = /html/head/title
+${LOGINPAGETITLE}           xpath = //html/head/title
+${MAINPAGEBUTTON}           xpath = //div/div/ul[1]/div[1]
+${LASTADDEDPLAYER}          xpath = //div[3]/div/div/a[1]/button/span[1]
 *** Test Cases ***
 Login to the system
     Open login page
@@ -117,13 +119,14 @@ Type in main position
 Click on the Submit button
     Click Element                    ${SUBMITBUTTON}
 Assert Edit page
-    Wait Until Element Is Visible        ${PLAYERINSIDEPANEL}   Adam Nawałka
-    Element Text Should Be           ${PLAYERINSIDEPANEL}   Adam Nawałka
+    Click Element                    ${MAINPAGEBUTTON}
+    Wait Until Element Is Visible    ${ADDNEWPLAYERBUTTON}
+    Element Text Should Be           ${LASTADDEDPLAYER}       Adam Nawałka
     Capture Page Screenshot          adding.png
 Click on clear button
     Click Element                    ${CLEARBUTTON}
 Assert name
-    Element Text Should Not Be       ${NAMEINPUT}           Adam
+    Element Text Should Not Be       ${NAMEINPUT}             Adam
 Click on the Sign out button
     Wait Until Element Is Visible    ${SIGNOUTBUTTON}
     Click Element                    ${SIGNOUTBUTTON}
